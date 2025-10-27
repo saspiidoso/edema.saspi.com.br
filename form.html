@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Questionário - Edema</title>
+  <link rel="stylesheet" href="edema.css">
+</head>
+<body>
+  <header>
+    <h1>Questionário de Avaliação</h1>
+    <nav>
+      <a href="index.html">Início</a>
+    </nav>
+  </header>
+
+  <main>
+    <form id="formulario">
+      <h2>Responda às perguntas abaixo:</h2>
+      <div id="perguntas"></div>
+      <button type="submit">Enviar</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Saúde Idosa</p>
+  </footer>
+
+  <script>
+    const perguntasDiv = document.getElementById('perguntas');
+    const totalPerguntas = 25;
+
+    for (let i = 1; i <= totalPerguntas; i++) {
+      perguntasDiv.innerHTML += `
+        <div class="pergunta">
+          <label for="q${i}">Pergunta ${i}:</label>
+          <select id="q${i}" name="q${i}" required>
+            <option value="">Selecione</option>
+            <option value="0">Nunca</option>
+            <option value="1">Raramente</option>
+            <option value="2">Às vezes</option>
+            <option value="3">Frequentemente</option>
+            <option value="4">Sempre</option>
+          </select>
+        </div>
+      `;
+    }
+
+    document.getElementById('formulario').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let respostas = [];
+
+      for (let i = 1; i <= totalPerguntas; i++) {
+
+        const valor = parseInt(document.getElementById(`q${i}`).value);
+        respostas.push(valor);
+      }
+
+      localStorage.setItem('respostas', JSON.stringify(respostas));
+      window.location.href = "RESUL.html";
+    });
+  </script>
+</body>
+</html>
